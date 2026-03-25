@@ -47,23 +47,10 @@ Hands-on labs demonstrating real-world L1/L2 skills. Each includes setup instruc
 
 ---
 
-## Lab Highlights
-
-### Lab 1: Active Directory Domain Controller
-**Built:** Windows Server 2022 DC + Windows 11 client on VirtualBox. Full OU structure, GPO enforcement, domain join.
-
-**Achievements:**
-- Automated 20+ user provisioning via PowerShell.
-- Implemented lockout policies reducing simulated brute-force risks.
-
-**PowerShell Example:**
-```powershell
-New-ADUser -Name "Jane Smith" -SamAccountName "jsmith" -Path "OU=IT,DC=lab,DC=local" -Enabled $true -AccountPassword (ConvertTo-SecureString "P@ssw0rd123" -AsPlainText -Force)
-```
-
-[Runbook](lab1-active-directory/runbook.md) | [Screenshots](lab1-active-directory/screenshots/)
-
-### Lab 5: L1 Network Troubleshooting (New!)
-**Scenarios:** Simulated tickets for ping failures, DNS issues, gateway problems using Packet Tracer.
-
-**L1 Triage Decision Tree:**
+Currently Working On
+🔄 Google IT Support Professional Certificate (Coursera — in progress)
+🔄 Google Cybersecurity Professional Certificate (Coursera — in progress)
+🔄 Desktop Support lab portfolio build-out (Homelabs Virtual box — in progress)
+🛡️ Cybersecurity lab portfolio build-out
+🎯 Microsoft AZ-900 — Target Q2 2026
+🎯 Cisco CCNA (200-301) — Target June 2026
