@@ -47,7 +47,7 @@ Hands-on labs demonstrating real-world L1/L2 skills. Each includes setup instruc
 
 ---
 
-Currently Working On
+## Currently Working On
 🔄 Google IT Support Professional Certificate (Coursera — in progress)
 🔄 Google Cybersecurity Professional Certificate (Coursera — in progress)
 🔄 Desktop Support lab portfolio build-out (Homelabs Virtual box — in progress)
