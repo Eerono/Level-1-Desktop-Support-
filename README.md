@@ -48,9 +48,10 @@ Hands-on labs demonstrating real-world L1/L2 skills. Each includes setup instruc
 ---
 
 ## Currently Working On
-🔄 Google IT Support Professional Certificate (Coursera — in progress)
-🔄 Google Cybersecurity Professional Certificate (Coursera — in progress)
-🔄 Desktop Support lab portfolio build-out (Homelabs Virtual box — in progress)
-🛡️ Cybersecurity lab portfolio build-out
-🎯 Microsoft AZ-900 — Target Q2 2026
-🎯 Cisco CCNA (200-301) — Target June 2026
+-🔄 Google IT Support Professional Certificate (Coursera — in progress)
+-🔄 Google Cybersecurity Professional Certificate (Coursera — in progress)
+-🔄 Desktop Support lab portfolio build-out (Homelabs Virtual box — in progress)
+-🛡️ Cybersecurity lab portfolio build-out
+-🎯 Microsoft AZ-900 — Target Q2 2026
+-🎯 Cisco CCNA (200-301) — Target June 2026
+
