@@ -2,10 +2,10 @@
 # Lab 2: Microsoft 365 & Intune MDM
 
 ## Overview
-M365 E5 Developer tenant (free). Configured users, MFA, Intune policies, device enrollment.
+M365 Buisness (1 month free trial/ subscription). Configured users, MFA, Intune policies, device enrollment.
 
 **Resources:**
-- [M365 Dev Program](https://developer.microsoft.com/microsoft-365/dev-program) → 90-day E5 sandbox.
+- [M365 Buisness Program](https://www.microsoft.com/en-au/microsoft-365/business#pricing) → 30-day E5 sandbox.
 
 ## Setup Instructions (45 mins)
 
