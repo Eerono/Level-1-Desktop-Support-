@@ -35,6 +35,9 @@ Hands-on IT professional specializing in Windows 11 enterprise rollouts, Microso
 
 ## 🛠️ Home Lab Portfolio
 
+## Live Projects
+- [Sydney Support Path](https://sydney-support-path.base44.app) — Built with Base44
+
 Hands-on labs demonstrating real-world L1/L2 skills. Each includes setup instructions, challenges overcome, and verifiable outputs.
 
 | # | Lab | Key Skills | Status | 📊 Metrics |
