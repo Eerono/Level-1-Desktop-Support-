@@ -1,263 +1,143 @@
-
 # Lab 1 — Active Directory & Windows Server 2022
- 
-## Overview
- 
-Build a production-realistic Active Directory domain with a Domain Controller and a domain-joined Windows 11 client. You'll configure DHCP, DNS, Organisational Units, Group Policy Objects, and user accounts — skills that map directly to enterprise sysadmin and IT support roles.
- 
-**Domain:** `lab.local` | **Estimated time:** 45–60 minutes | **Difficulty:** Intermediate
- 
+
+Set up a basic Active Directory domain using two virtual machines — no commands needed, everything through the graphical interface.
+
+**Domain:** `lab.local` · **Time:** 45–60 min
+
 ---
- 
-## Environment Specs
- 
-| Component | Detail |
-|-----------|--------|
-| Hypervisor | VirtualBox 7.x (free) |
-| **DC01** — Domain Controller | Windows Server 2022 Eval |
-| DC01 IP | `192.168.56.101` (static) |
-| DC01 Resources | 4 GB RAM · 2 CPU cores · 60 GB VDI |
-| **CLIENT01** — Domain Client | Windows 11 (22H2+) |
-| CLIENT01 IP | DHCP from DC01 |
-| CLIENT01 Resources | 2 GB RAM · 2 CPU cores · 40 GB VDI |
-| Network | VirtualBox Host-only Adapter (`vboxnet0`) |
- 
-> **Note:** Download the free 180-day Server 2022 evaluation ISO from [Microsoft's Evaluation Center](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022). No product key is required for lab use.
- 
+
+## What You Need to Download First
+
+| Download | Link |
+|----------|------|
+| VirtualBox (free) | [virtualbox.org](https://www.virtualbox.org/wiki/Downloads) |
+| Windows Server 2022 (free 180-day trial) | [Microsoft Eval Center](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022) |
+| Windows 11 ISO | [microsoft.com](https://www.microsoft.com/software-download/windows11) |
+
 ---
- 
-## Step 1 — Create the DC01 Virtual Machine
- 
-~10 minutes
- 
-1. VirtualBox → **New** → Name: `DC01`
-2. Type: **Microsoft Windows** · Version: **Windows 2022 (64-bit)**
-3. RAM: `4096 MB` · CPU: `2 cores` · Enable EFI: **off**
-4. Disk: **VDI, dynamically allocated, 60 GB**
-5. After creation → Settings → **Network** → Adapter 1: **Host-only Adapter** → `vboxnet0`
-6. Settings → **Storage** → attach the Server 2022 ISO to the optical drive
-7. Boot DC01 → select **Windows Server 2022 Standard (Desktop Experience)** → Custom install on Disk 0
- 
+
+## Part 1 — Create Your Two Virtual Machines in VirtualBox
+
+### VM 1: DC01 (the server)
+
+1. Open VirtualBox → click **New**
+2. Name: `DC01` · Type: **Microsoft Windows** · Version: **Windows 2022 (64-bit)** → Next
+3. RAM: **4096 MB** · CPU: **2** → Next
+4. Disk size: **60 GB** → Next → Finish
+5. Click **DC01** → **Settings → Network → Adapter 1** → change *Attached to* to **Host-only Adapter** → OK
+6. **Settings → Storage** → click the empty disc icon → click the disc icon on the right → **Choose a disk file** → select your Server 2022 ISO → OK
+7. Click **Start** → Windows setup will launch
+
+**During Windows setup:**
+- Language/keyboard → Next → Install Now
+- Select **Windows Server 2022 Standard Evaluation (Desktop Experience)** → Next
+- Accept the licence → **Custom install** → select Disk 0 → Next
+- Windows installs and restarts — set an Administrator password when prompted
+
 ---
- 
-## Step 2 — Set a Static IP on DC01
- 
-~5 minutes
- 
-A Domain Controller must have a static IP — it cannot be a DHCP client for the services it hosts. Open **PowerShell as Administrator**:
- 
-```powershell
-# Identify the interface name
-Get-NetAdapter
- 
-# Set static IP, subnet, gateway, and DNS (pointing to itself)
-New-NetIPAddress -InterfaceAlias "Ethernet" `
-  -IPAddress "192.168.56.101" `
-  -PrefixLength 24 `
-  -DefaultGateway "192.168.56.1"
- 
-Set-DnsClientServerAddress -InterfaceAlias "Ethernet" `
-  -ServerAddresses "192.168.56.101"
- 
-# Verify
-ipconfig /all
-```
- 
-> ⚠️ Replace `"Ethernet"` with the actual adapter name shown by `Get-NetAdapter`. It may be `"Ethernet 2"` or similar.
- 
+
+### VM 2: CLIENT01 (the client PC)
+
+1. Click **New** → Name: `CLIENT01` · Version: **Windows 11 (64-bit)**
+2. RAM: **2048 MB** · CPU: **2** · Disk: **40 GB** → Finish
+3. **Settings → System → Motherboard** → tick **Enable EFI** → under the **TPM** section enable **TPM 2.0**
+4. **Settings → Network → Adapter 1** → **Host-only Adapter** → OK
+5. **Settings → Storage** → attach the Windows 11 ISO
+6. Click **Start** → follow Windows 11 setup
+
+**Skipping the Microsoft account requirement:**
+- When setup asks to connect to Wi-Fi → press `Shift + F10` → a black window opens → type `OOBE\BYPASSNRO` → press Enter → VM reboots
+- Go through setup again → when asked about internet → click **"I don't have internet"** → **"Continue with limited setup"** → create a local username and password
+
 ---
- 
-## Step 3 — Install AD DS and Promote to Domain Controller
- 
-~15 minutes
- 
-Install the role, then run the promotion. The server reboots automatically.
- 
-```powershell
-# Install the AD DS role and management tools
-Install-WindowsFeature -Name AD-Domain-Services `
-  -IncludeManagementTools
- 
-# Promote to DC — creates new forest lab.local
-Import-Module ADDSDeployment
- 
-Install-ADDSForest `
-  -DomainName "lab.local" `
-  -DomainNetbiosName "LAB" `
-  -ForestMode "WinThreshold" `
-  -DomainMode "WinThreshold" `
-  -InstallDns:$true `
-  -SafeModeAdministratorPassword `
-    (ConvertTo-SecureString "P@ssw0rd123!" -AsPlainText -Force) `
-  -Force:$true
-```
- 
-After the reboot, log back in as `LAB\Administrator`, then verify:
- 
-```powershell
-Get-ADDomain
-```
- 
-> 💡 The DSRM password is your break-glass recovery credential for the AD database. In a real environment, store it in a password manager.
- 
+
+## Part 2 — Install Active Directory on DC01
+
+1. Log into **DC01** → open **Server Manager** (it opens automatically)
+2. Click **Manage** (top right) → **Add Roles and Features**
+3. Click **Next** three times until you reach *Server Roles*
+4. Tick **Active Directory Domain Services** → click **Add Features** → Next → Next → Next → **Install**
+5. Wait for it to finish — do **not** close the window early
+
+**Promote the server to a Domain Controller:**
+
+6. In Server Manager, click the **yellow flag** (top right) → **Promote this server to a domain controller**
+7. Select **Add a new forest** → Root domain name: `lab.local` → Next
+8. Set a **DSRM password** (e.g. `P@ssw0rd123!`) → Next → Next → Next → Next → Next → **Install**
+9. The server restarts automatically — log back in as `LAB\Administrator`
+
 ---
- 
-## Step 4 — Configure DHCP Server
- 
-~5 minutes
- 
-DHCP lets CLIENT01 receive an IP automatically. The scope starts at `.110` to avoid conflicting with DC01 at `.101`.
- 
-```powershell
-# Install DHCP role
-Install-WindowsFeature -Name DHCP -IncludeManagementTools
- 
-# Authorize the DHCP server in AD (required — without this, DHCP silently refuses to hand out leases)
-Add-DhcpServerInDC -DnsName "dc01.lab.local" `
-  -IPAddress "192.168.56.101"
- 
-# Create a scope
-Add-DhcpServerv4Scope -Name "Lab Scope" `
-  -StartRange "192.168.56.110" `
-  -EndRange "192.168.56.200" `
-  -SubnetMask "255.255.255.0" `
-  -State Active
- 
-# Set gateway and DNS options for clients
-Set-DhcpServerv4OptionValue -ScopeId "192.168.56.0" `
-  -Router "192.168.56.101" `
-  -DnsServer "192.168.56.101" `
-  -DnsDomain "lab.local"
-```
- 
+
+## Part 3 — Create Organisational Units and Users
+
+### Create OUs
+
+1. In Server Manager → **Tools** → **Active Directory Users and Computers**
+2. Expand `lab.local` in the left panel
+3. Right-click `lab.local` → **New → Organizational Unit**
+4. Create these four OUs one at a time:
+   - `IT_Department`
+   - `Finance`
+   - `HR`
+   - `Computers`
+
+### Create Users
+
+1. Click the `IT_Department` OU → right-click in the right panel → **New → User**
+2. Fill in:
+   - First name: `John` · Last name: `Smith` · User logon name: `jsmith` → Next
+   - Password: `P@ssw0rd123!`
+   - Untick **User must change password at next logon** · Tick **Password never expires** → Next → Finish
+3. Repeat for:
+   - `Alice Wong` / `awong` → place in `Finance`
+   - `Bob Patel` / `bpatel` → place in `HR`
+
 ---
- 
-## Step 5 — Create OUs and Test User Accounts
- 
-~5 minutes
- 
-Organisational Units mirror real business departments and are the foundation for applying GPOs to specific groups of users or computers.
- 
-```powershell
-# Create department OUs
-$base = "DC=lab,DC=local"
-foreach ($ou in "IT_Department","Finance","HR","Computers") {
-  New-ADOrganizationalUnit -Name $ou -Path $base
-}
- 
-# Create test users
-$pass = ConvertTo-SecureString "P@ssw0rd123!" -AsPlainText -Force
- 
-$users = @(
-  @{Name="John Smith";  SamAccountName="jsmith"; OU="IT_Department"},
-  @{Name="Alice Wong";  SamAccountName="awong";  OU="Finance"},
-  @{Name="Bob Patel";   SamAccountName="bpatel"; OU="HR"}
-)
- 
-foreach ($u in $users) {
-  New-ADUser `
-    -Name $u.Name `
-    -SamAccountName $u.SamAccountName `
-    -UserPrincipalName "$($u.SamAccountName)@lab.local" `
-    -Path "OU=$($u.OU),DC=lab,DC=local" `
-    -AccountPassword $pass `
-    -Enabled $true `
-    -PasswordNeverExpires $true
-}
- 
-# Confirm users were created
-Get-ADUser -Filter * -Properties Department | Select Name, SamAccountName
-```
- 
+
+## Part 4 — Create a Security Policy (GPO)
+
+1. In Server Manager → **Tools** → **Group Policy Management**
+2. Expand **Forest: lab.local → Domains → lab.local**
+3. Right-click `lab.local` → **Create a GPO in this domain and link it here**
+4. Name it `Security Baseline` → OK
+5. Right-click **Security Baseline** → **Edit**
+6. Navigate to: **Computer Configuration → Policies → Windows Settings → Security Settings → Local Policies → Security Options**
+7. Double-click **Interactive logon: Message title for users attempting to log on** → tick *Define* → type `Authorised Access Only` → OK
+8. Double-click **Interactive logon: Message text for users attempting to log on** → tick *Define* → type `This system is for authorised lab use only.` → OK
+9. Close the editor
+
 ---
- 
-## Step 6 — Create and Link a GPO
- 
-~5 minutes
- 
-Group Policy is one of the most critical AD skills. This starter GPO sets a logon banner — a real compliance requirement in most organisations.
- 
-```powershell
-# Create a GPO and link it to the domain root
-New-GPO -Name "Security Baseline" | `
-  New-GPLink -Target "DC=lab,DC=local"
- 
-# Set a logon warning banner via registry policy
-Set-GPRegistryValue -Name "Security Baseline" `
-  -Key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
-  -ValueName "LegalNoticeCaption" `
-  -Type String -Value "Authorised Access Only"
- 
-Set-GPRegistryValue -Name "Security Baseline" `
-  -Key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
-  -ValueName "LegalNoticeText" `
-  -Type String -Value "This system is for authorised lab use only."
-```
- 
+
+## Part 5 — Join CLIENT01 to the Domain
+
+1. Log into **CLIENT01** with your local account
+2. Right-click the **Start menu** → **System**
+3. Scroll down → click **Advanced system settings** → **Computer Name** tab
+4. Click **Change** → select **Domain** → type `lab.local` → OK
+5. Enter credentials when prompted:
+   - Username: `LAB\Administrator`
+   - Password: your DC01 admin password
+6. You'll see *"Welcome to the lab.local domain"* → OK → restart when prompted
+7. At the login screen click **Other user** → log in as `LAB\jsmith` with password `P@ssw0rd123!`
+
 ---
- 
-## Step 7 — Create CLIENT01 and Join the Domain
- 
-~10 minutes
- 
-**Create the VM:**
- 
-1. New VM → Name: `CLIENT01` · Windows 11 (64-bit) · 2 GB RAM · 40 GB VDI
-2. Settings → System → enable **TPM 2.0** (required for Windows 11)
-3. Network Adapter 1: **Host-only** → `vboxnet0`
-4. Install Windows 11. At the network screen, press `Shift+F10` → run `OOBE\BYPASSNRO` → reboot → choose **"I don't have internet"** to create a local account and skip the Microsoft account requirement.
- 
-**Join the domain** — open PowerShell as local Administrator on CLIENT01:
- 
-```powershell
-# Confirm DHCP lease and DNS resolution
-ipconfig /all
-Resolve-DnsName dc01.lab.local
- 
-# Join the domain (prompts for domain admin credentials)
-Add-Computer -DomainName "lab.local" `
-  -OUPath "OU=Computers,DC=lab,DC=local" `
-  -Credential (Get-Credential) `
-  -Restart
-```
- 
-When prompted, enter `LAB\Administrator` and the admin password. After the reboot, log in as `LAB\jsmith` to test a domain user login.
- 
+
+## Quick Checks — Did It Work?
+
+| What to check | Where to look | Expected result |
+|---------------|---------------|-----------------|
+| Users exist | AD Users and Computers on DC01 | jsmith, awong, bpatel visible |
+| CLIENT01 joined | AD Users and Computers → Computers OU | CLIENT01 listed |
+| Domain login works | Log into CLIENT01 as `LAB\jsmith` | Desktop loads successfully |
+| GPO applied | CLIENT01 login screen | Warning banner appears before login |
+
 ---
- 
-## Verification Checklist
- 
-Run these on DC01 and CLIENT01 to confirm everything is working.
- 
-| Check | Command | Expected Result |
-|-------|---------|----------------|
-| AD users exist | `Get-ADUser -Filter * \| Measure-Object` | Count ≥ 5 |
-| DHCP scope is active | `Get-DhcpServerv4Scope` | State: Active · range 192.168.56.110–200 |
-| Domain login works | `whoami` (on CLIENT01) | `lab\jsmith` |
-| GPO applied | `gpresult /r` (on CLIENT01) | "Security Baseline" listed under Computer Settings |
-| DNS resolving | `Resolve-DnsName client01.lab.local` (on DC01) | Returns CLIENT01's IP |
-| Computer object in AD | `Get-ADComputer CLIENT01` (on DC01) | Object exists in OU=Computers |
- 
----
- 
+
 ## Troubleshooting
- 
-**CLIENT01 can't resolve `lab.local` / domain join fails**
-- Verify DNS points to DC01: `Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses "192.168.56.101"`
-- Then test: `Resolve-DnsName dc01.lab.local`
- 
-**DHCP not handing out addresses**
-- Confirm the server is authorised in AD: `Get-DhcpServerInDC`
-- If missing, run: `Add-DhcpServerInDC -DnsName "dc01.lab.local" -IPAddress "192.168.56.101"`
- 
-**Windows 11 forces Microsoft account during setup**
-- At the network screen: `Shift+F10` → `OOBE\BYPASSNRO` → reboot → "I don't have internet"
- 
-**GPO not applying on CLIENT01**
-- Force a refresh: `gpupdate /force`
-- Check for errors: `gpresult /r`
- 
-**AD promotion fails with DNS conflict**
-- Before promotion, set DNS to `127.0.0.1` temporarily, then switch back to the static IP post-reboot
- 
----
+
+| Problem | Fix |
+|---------|-----|
+| CLIENT01 can't find the domain | Both VMs must be set to **Host-only Adapter** in VirtualBox network settings |
+| Windows 11 won't skip Microsoft account | Press `Shift + F10` → type `OOBE\BYPASSNRO` → Enter |
+| GPO banner not showing | On DC01 → Group Policy Management → right-click **Security Baseline** → **GPUpdate** |
+| Can't log in as domain user | Click **Other user** on the login screen and type `LAB\jsmith` |
