@@ -1,6 +1,3 @@
-
-# Lab 4: Cisco Networking — Packet Tracer
-[README (1).md](https://github.com/user-attachments/files/26399557/README.1.md)
 # Lab 4: Cisco Networking — Packet Tracer
 
 > Inter-VLAN routing lab using a 2-subnet topology. Configured on Cisco Packet Tracer with a 2911 router, two 2960 switches, and five PCs.
@@ -58,9 +55,16 @@ Add devices and connect with Copper Straight-Through cables:
 - Switch0 → PC0, PC1, PC2
 - Switch1 → PC3, PC4
 
+<img width="1454" height="939" alt="topology" src="https://github.com/user-attachments/assets/1b6df775-267d-4b8e-939b-f266b59a4bc8" />
+
+
 **2. Set all PCs to DHCP**
 
 Desktop → IP Configuration → DHCP
+
+<img width="556" height="712" alt="Screenshot 2026-04-01 183243" src="https://github.com/user-attachments/assets/118f8f6b-d8d9-4046-899c-476821c82252" />
+
+
 
 **3. Configure the router**
 
@@ -90,6 +94,7 @@ ip dhcp pool OFFICE_SUBNET
  dns-server 8.8.8.8
  exit
 ```
+<img width="899" height="940" alt="Screenshot 2026-04-01 191009" src="https://github.com/user-attachments/assets/de787dd8-f2fd-4b89-b8e9-bfc44388f765" />
 
 ---
 
@@ -97,6 +102,15 @@ ip dhcp pool OFFICE_SUBNET
 
 ```
 PC0> ping 192.168.2.10   ← inter-subnet ping → should succeed
+
+
+```
+
+
+<img width="1250" height="961" alt="Screenshot 2026-04-01 190940" src="https://github.com/user-attachments/assets/73eb1983-3518-4c63-9d51-c7bb05b44344" />
+
+
+
 ```
 
 ---
