@@ -38,6 +38,7 @@ Configure a Microsoft 365 tenant from scratch with real enterprise tooling — u
 1. Go to [admin.microsoft.com](https://admin.microsoft.com)
 2. Sign in as the Global Admin
 3. Confirm **Microsoft 365 E5** licence is showing under **Billing → Your products**
+<img width="2910" height="1206" alt="image" src="https://github.com/user-attachments/assets/143b45a6-a705-4d23-a9f2-88ca6b179a9e" />
 
 ---
 
@@ -60,6 +61,9 @@ Configure a Microsoft 365 tenant from scratch with real enterprise tooling — u
 | Roles | No admin access (standard user) |
 
 3. Repeat to create a second test user: `john.smith@labintune.onmicrosoft.com`
+
+4. <img width="977" height="999" alt="image" src="https://github.com/user-attachments/assets/4da14a9b-3a98-455b-ad77-52e7c1eb3bd3" />
+
 
 ### Create users in bulk via PowerShell (optional but good practice)
 
@@ -100,6 +104,9 @@ Get-MgUser -Filter "displayName eq 'Jane Doe'" | Select DisplayName, UserPrincip
 2. Select `jane.doe` → **Manage multifactor authentication**
 3. Check the box next to the user → **Enable**
 4. Repeat for all test users
+
+   <img width="2107" height="455" alt="image" src="https://github.com/user-attachments/assets/0884ebe9-ce9f-4cb0-a235-96a873da14a0" />
+
 
 ### Enable MFA via Conditional Access (recommended — enterprise approach)
 
