@@ -1,6 +1,6 @@
 
 # Lab 4: Cisco Networking — Packet Tracer
-[README (1).md](https://github.com/user-attachments/files/26397511/README.1.md)
+[README (1).md](https://github.com/user-attachments/files/26399557/README.1.md)
 # Lab 4: Cisco Networking — Packet Tracer
 
 > Inter-VLAN routing lab using a 2-subnet topology. Configured on Cisco Packet Tracer with a 2911 router, two 2960 switches, and five PCs.
