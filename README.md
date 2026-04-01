@@ -43,9 +43,9 @@ Hands-on labs demonstrating real-world L1/L2 skills. Each includes setup instruc
 | # | Lab | Key Skills | Status | 📊 Metrics |
 |---|-----|------------|--------|------------|
 | 1 | [Active Directory & Server 2022](./lab1-active-directory/) | AD DS, DHCP, GPO, PowerShell | ✅ Complete | 50+ users/groups created |
-| 2 | [Microsoft 365 & Intune](./lab2-m365-intune/) | MDM, MFA, Compliance Policies | ✅ Complete | 10+ policies/devices |
-| 3 | [ServiceNow ITSM](./lab3-servicenow/) | Incidents/Changes/Problems | ✅ Complete | NOC dashboard built |
-| 4 | [Cisco Networking](./lab4-networking/) | Subnetting, Routing, DHCP/DNS | 🔨 In Progress | 2-subnet topology |
+| 2 | [Microsoft 365 & Intune](./lab2-m365-intune/) | MDM, MFA, Compliance Policies |  🔨 In Progress | 10+ policies/devices |
+| 3 | [ServiceNow ITSM](./lab3-servicenow/) | Incidents/Changes/Problems | 🔨 In Progress | NOC dashboard built |
+| 4 | [Cisco Networking](./lab4-networking/) | Subnetting, Routing, DHCP/DNS | ✅ Complete | 2-subnet topology |
 | 5 | [L1 Network Troubleshooting](./lab5-network-troubleshooting/) | Ping/DNS/Gateway triage | 🆕 Planned | 5 common scenarios |
 
 ---
