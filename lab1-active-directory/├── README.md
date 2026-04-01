@@ -49,6 +49,9 @@ Set up a basic Active Directory domain using two virtual machines — no command
 - When setup asks to connect to Wi-Fi → press `Shift + F10` → a black window opens → type `OOBE\BYPASSNRO` → press Enter → VM reboots
 - Go through setup again → when asked about internet → click **"I don't have internet"** → **"Continue with limited setup"** → create a local username and password
 
+
+<img width="832" height="491" alt="image" src="https://github.com/user-attachments/assets/94c7b23e-b196-404f-b52a-0dc9f97d32ef" />
+
 ---
 
 ## Part 2 — Install Active Directory on DC01
@@ -58,6 +61,7 @@ Set up a basic Active Directory domain using two virtual machines — no command
 3. Click **Next** three times until you reach *Server Roles*
 4. Tick **Active Directory Domain Services** → click **Add Features** → Next → Next → Next → **Install**
 5. Wait for it to finish — do **not** close the window early
+<img width="857" height="550" alt="step 3 2" src="https://github.com/user-attachments/assets/48d594ee-15e7-4c66-a301-081be78db1f1" />
 
 **Promote the server to a Domain Controller:**
 
@@ -65,6 +69,7 @@ Set up a basic Active Directory domain using two virtual machines — no command
 7. Select **Add a new forest** → Root domain name: `lab.local` → Next
 8. Set a **DSRM password** (e.g. `P@ssw0rd123!`) → Next → Next → Next → Next → Next → **Install**
 9. The server restarts automatically — log back in as `LAB\Administrator`
+<img width="796" height="641" alt="step 5 1" src="https://github.com/user-attachments/assets/e06a408e-7c3a-488a-8924-756572c8de7c" />
 
 ---
 
@@ -80,6 +85,7 @@ Set up a basic Active Directory domain using two virtual machines — no command
    - `Finance`
    - `HR`
    - `Computers`
+<img width="1920" height="1200" alt="Screenshot (272)" src="https://github.com/user-attachments/assets/0de5c838-74cf-4e66-ad9b-bb40d7bf2238" />
 
 ### Create Users
 
@@ -91,6 +97,7 @@ Set up a basic Active Directory domain using two virtual machines — no command
 3. Repeat for:
    - `Alice Wong` / `awong` → place in `Finance`
    - `Bob Patel` / `bpatel` → place in `HR`
+<img width="1920" height="1200" alt="Screenshot (274)" src="https://github.com/user-attachments/assets/97cab8d3-b49d-45d7-95a4-9da7efb03ba2" />
 
 ---
 
@@ -105,6 +112,7 @@ Set up a basic Active Directory domain using two virtual machines — no command
 7. Double-click **Interactive logon: Message title for users attempting to log on** → tick *Define* → type `Authorised Access Only` → OK
 8. Double-click **Interactive logon: Message text for users attempting to log on** → tick *Define* → type `This system is for authorised lab use only.` → OK
 9. Close the editor
+<img width="1920" height="1200" alt="Screenshot (282)" src="https://github.com/user-attachments/assets/55410c14-74dc-4696-a9bd-e008ed072bc7" />
 
 ---
 
@@ -119,6 +127,7 @@ Set up a basic Active Directory domain using two virtual machines — no command
    - Password: your DC01 admin password
 6. You'll see *"Welcome to the lab.local domain"* → OK → restart when prompted
 7. At the login screen click **Other user** → log in as `LAB\jsmith` with password `P@ssw0rd123!`
+<img width="1920" height="1200" alt="Screenshot (283)" src="https://github.com/user-attachments/assets/f8283fca-aba3-4969-81f6-ec19b9af84e2" />
 
 ---
 
