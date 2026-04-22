@@ -17,8 +17,3 @@
 <img width="999" height="552" alt="image" src="https://github.com/user-attachments/assets/d4950daa-f45b-4365-9eaf-29ac61b73414" />
 <img width="986" height="559" alt="image" src="https://github.com/user-attachments/assets/635aca5a-c41e-4164-b49c-0846d35043aa" />
 
-## L1 Decision Tree
-ping 127.0.0.1? No → netsh winsock reset
-Yes → ping gateway? No → Layer 1 (cable/adapter)
-Yes → ping 8.8.8.8? No → Routing/GW
-Yes → ping domain? No → DNS (nslookup)
