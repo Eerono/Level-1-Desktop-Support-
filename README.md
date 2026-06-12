@@ -42,20 +42,17 @@ Hands-on labs demonstrating real-world L1/L2 skills. Each includes setup instruc
 
 | # | Lab | Key Skills | Status | 📊 Metrics |
 |---|-----|------------|--------|------------|
-| 1 | [Active Directory & Server 2022](./lab1-active-directory/) | AD DS, DHCP, GPO, PowerShell | ✅ Complete | 50+ users/groups created |
-| 2 | [Microsoft 365 & Intune](./lab2-m365-intune/) | MDM, MFA, Compliance Policies |  🔨 In Progress | 10+ policies/devices |
-| 3 | [ServiceNow ITSM](./lab3-servicenow/) | Incidents/Changes/Problems | 🔨 In Progress | NOC dashboard built |
-| 4 | [Cisco Networking](./lab4-networking/) | Subnetting, Routing, DHCP/DNS | ✅ Complete | 2-subnet topology |
-| 5 | [L1 Network Troubleshooting](./lab5-network-troubleshooting/) | Ping/DNS/Gateway triage | 🆕 Planned | 5 common scenarios |
+| 1 | [Active Directory & Server 2022](./lab1-active-directory/) | AD DS, DHCP, GPO, PowerShell | 
+| 2 | [Microsoft 365 & Intune](./lab2-m365-intune/) | MDM, MFA, Compliance Policies | 
+| 3 | [ServiceNow ITSM](./lab3-servicenow/) | Incidents/Changes/Problems | 
+| 4 | [L1 Network Troubleshooting](./lab5-network-troubleshooting/) | Ping/DNS/Gateway triage |
 
 ---
 
 ## Currently Working On
 
-- 🔄 Google IT Support Professional Certificate *(Coursera — in progress)*
-- 🔄 Comptia A+ *(Comptia — in progress)*
-- 🔄 Google Cybersecurity Professional Certificate *(Coursera — in progress)*
-- 🔄 Desktop Support lab portfolio build-out *(VM Homelabs — in progress)*
-- 🛡️ Cybersecurity lab portfolio build-out
-- 🎯 Microsoft AZ-900 — Target Q2 2026
-- 🎯 Cisco CCNA (200-301) — Target June 2026
+- 🔄 Security +
+- 🔄 Microsoft MD102
+- 🔄 Tryhackme learning paths
+- 🔄 Microsoft AZ-900 
+  
