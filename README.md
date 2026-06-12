@@ -16,8 +16,7 @@
 Hands-on IT professional specializing in Windows 11 enterprise rollouts, Microsoft ecosystem management, and L1/L2 support. Currently building a home lab portfolio to accelerate path to NOC/Desktop Support roles.
 
 - **Experience:** Managed Autopilot deployments for NSW Department of Education; Apple Business Manager for AFL Corporate fleet.
-- **Education:** Diploma of Cyber Security (2025) | Cert IV IT (2025) | Google IT Support Cert (in progress).
-- **Targets:** AZ-900 (Q2 2026) | CCNA (June 2026). Open to Sydney-based Helpdesk/NOC opportunities.
+- **Education:** Diploma of Cyber Security (2025) | Cert IV IT (2025) | \
 
 <div align="center">
 
