@@ -24,7 +24,6 @@ Hands-on IT professional specializing in Windows 11 enterprise rollouts, Microso
 |-----------------|-----------|----------------|
 | Active Directory | 🟢 Advanced | ADUC, PowerShell, GPO |
 | Microsoft 365 | 🟢 Advanced | Intune, Entra ID, Autopilot |
-| Networking (L1/L2) | 🟡 Intermediate | TCP/IP, Packet Tracer, ping/tracert |
 | ITSM | 🟡 Intermediate | ServiceNow workflows |
 | Scripting | 🟡 Intermediate | PowerShell |
 
