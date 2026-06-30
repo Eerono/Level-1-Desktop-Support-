@@ -50,7 +50,6 @@ Hands-on labs demonstrating real-world L1/L2 skills. Each includes setup instruc
 ## Currently Working On
 
 - 🔄 Security +
-- 🔄 Microsoft MD102
 - 🔄 Tryhackme learning paths
 - 🔄 Microsoft AZ-900 
   
